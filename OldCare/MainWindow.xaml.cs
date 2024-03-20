@@ -23,6 +23,12 @@ namespace OldCare
         public MainWindow()
         {
             InitializeComponent();
+            //TestIcon.Executable = "notepad.exe";
+        }
+
+        private void Button_Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

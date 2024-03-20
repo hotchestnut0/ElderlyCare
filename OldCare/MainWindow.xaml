@@ -4,9 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OldCare"
+        xmlns:controls="clr-namespace:OldCare.Controls"
+        xmlns:properties="clr-namespace:OldCare.Properties"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized"
+        MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TabControl Style="{StaticResource TabControlInLine}" FontSize="220">
+            <TabItem Header="页面1" FontSize="20">
+                <controls:AppIcon x:Name="TestIcon" AppName="测试图标" Executable="C:/Windows/System32/notepad.exe" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+            <TabItem Header="页面2"  FontSize="20">
 
+            </TabItem>
+        </TabControl>
+        <Button Grid.Row="1" Style="{StaticResource ButtonWarning}" Content="关闭" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20" hc:IconElement.Geometry="{StaticResource CloseGeometry}" hc:IconElement.Height="20" hc:IconElement.Width="20" Width="120" Height="60" FontSize="20" Click="Button_Close_Click"/>
     </Grid>
 </Window>
