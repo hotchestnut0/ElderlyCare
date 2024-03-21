@@ -1,30 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 using System.Windows;
+using HandyControl.Data;
+using HandyControl.Themes;
+using HandyControl.Tools;
 
-namespace OldCare.Properties
+namespace ElderlyCareApp.Properties
 {
-    class SettingsProperties : DependencyObject
+    [Serializable]
+    public class SettingsProperties
     {
-        public static SettingsProperties SettingsInstance { get; } = new();
+        public delegate void SettingsUpdateEventHandler(object sender);
+        public event SettingsUpdateEventHandler? SettingsUpdate;
 
-        public static readonly DependencyProperty FontSizeSettings =
-            DependencyProperty.RegisterAttached(nameof(FontSizeRaw), typeof(double), typeof(SettingsProperties), new(20d));
-
-        public double FontSizeRaw
+        public SettingsProperties()
         {
-            get => (double)GetValue(FontSizeSettings);
-            set
+            FontSize = 20d;
+            DarkMode = DarkMode.Disabled;
+        } 
+
+        public static SettingsProperties Read()
+        {
+            using FileStream fileStream = File.Open("settings.json", FileMode.OpenOrCreate, FileAccess.Read);
+            if (fileStream.Length == 0)
             {
-                double v = value;
-                if (v is < 16 or > 30)
-                    v = 20;
-                SetValue(FontSizeSettings, v);
+                return new();
             }
+
+            return JsonSerializer.Deserialize<SettingsProperties>(fileStream) ?? new();
         }
+
+        public void Save()
+        {
+            {
+                using FileStream fileStream = File.Create("settings.json");
+                JsonSerializer.Serialize(fileStream, this);
+            }
+
+            SettingsUpdate?.Invoke(this);
+        }
+
+        public double FontSize{ get; set; }
+        public DarkMode DarkMode { get; set; }
+
+    }
+
+    public enum DarkMode
+    {
+        Disabled,
+        Enabled,
+        Auto
     }
 }

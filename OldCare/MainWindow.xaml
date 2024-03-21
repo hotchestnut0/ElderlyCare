@@ -1,16 +1,19 @@
-﻿<hc:BlurWindow x:Class="OldCare.MainWindow"
+﻿<hc:BlurWindow x:Class="ElderlyCareApp.MainWindow"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:local="clr-namespace:OldCare"
-               xmlns:controls="clr-namespace:OldCare.Controls"
-               xmlns:properties="clr-namespace:OldCare.Properties"
                xmlns:hc="https://handyorg.github.io/handycontrol"
+               xmlns:controls="clr-namespace:ElderlyCareApp.Controls"
+               xmlns:vms="clr-namespace:ElderlyCareApp.Viewmodels"
+               xmlns:elderlyCareApp="clr-namespace:ElderlyCareApp"
                mc:Ignorable="d"
-               Title="MainWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Maximized"
+               Title="MainWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
                MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}"
-               FontSize="{Binding FontSizeRaw}" d:DataContext="{d:DesignInstance Type=properties:SettingsProperties}">
+               FontSize="{Binding FontSize}">
+    <hc:BlurWindow.DataContext>
+        <vms:MainWindowViewModel/>
+    </hc:BlurWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -36,14 +39,14 @@
 
                     
                     <GroupBox Grid.Column="0" Grid.Row="1" Header="设置" Margin="5">
-                        <hc:ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                            <local:Settings/>
-                        </hc:ScrollViewer>
+                        <ScrollViewer>
+                            <elderlyCareApp:Settings x:Name="SettingsObject"/>
+                        </ScrollViewer>
                     </GroupBox>
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="页面2"  FontSize="20">
+            <TabItem Header="页面2">
 
             </TabItem>
         </TabControl>
