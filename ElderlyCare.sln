@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33711.374
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElderlyCareApp", "OldCare\ElderlyCareApp.csproj", "{4A4974B7-1F22-4031-AA50-20BD6666B73A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElderlyCareApp", "ElderlyCareApp\ElderlyCareApp.csproj", "{4A4974B7-1F22-4031-AA50-20BD6666B73A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4B6167AF-BAE2-4EFA-8173-4AF53AE08FA0}"
 EndProject
