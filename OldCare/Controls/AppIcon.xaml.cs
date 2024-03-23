@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Brush = System.Windows.Media.Brush;
 using Color = System.Windows.Media.Color;
 
 namespace ElderlyCareApp.Controls
@@ -46,7 +47,7 @@ namespace ElderlyCareApp.Controls
 
         private SolidColorBrush _mouseEnter = new(Color.FromArgb(255, 220, 220, 220));
         private SolidColorBrush _mouseDown = new(Color.FromArgb(255, 200, 200, 200));
-        private SolidColorBrush _normal = new(Color.FromArgb(255, 255, 255, 255));
+        private Brush _normal;
         private ImageSource _defaultIcon = GetDefaultIcon();
         private string? _executable;
 
@@ -54,6 +55,7 @@ namespace ElderlyCareApp.Controls
         public AppIcon()
         {
             DataContext = this;
+            _normal = Background;
             InitializeComponent();
         }
 
@@ -83,7 +85,15 @@ namespace ElderlyCareApp.Controls
             Background = _mouseEnter;
             try
             {
-                Process.Start(Executable);
+                Process process = new();
+                process.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = _executable,
+                    UseShellExecute = true,
+                };
+
+                process.Start();
+
             }
             catch
             {

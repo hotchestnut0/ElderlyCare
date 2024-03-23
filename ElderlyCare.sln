@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.33711.374
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElderlyCareApp", "OldCare\ElderlyCareApp.csproj", "{4A4974B7-1F22-4031-AA50-20BD6666B73A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4B6167AF-BAE2-4EFA-8173-4AF53AE08FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest", "WeatherTest\WeatherTest.csproj", "{CE68A57B-41DE-4B44-9ACD-B26D9E981C29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{4A4974B7-1F22-4031-AA50-20BD6666B73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A4974B7-1F22-4031-AA50-20BD6666B73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A4974B7-1F22-4031-AA50-20BD6666B73A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE68A57B-41DE-4B44-9ACD-B26D9E981C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE68A57B-41DE-4B44-9ACD-B26D9E981C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE68A57B-41DE-4B44-9ACD-B26D9E981C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE68A57B-41DE-4B44-9ACD-B26D9E981C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE68A57B-41DE-4B44-9ACD-B26D9E981C29} = {4B6167AF-BAE2-4EFA-8173-4AF53AE08FA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9D2B175-B0E4-4387-BEAA-B9699B6910FB}

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using ElderlyCareApp.Properties;
 using ElderlyCareApp.Viewmodels;
 using HandyControl.Controls;
