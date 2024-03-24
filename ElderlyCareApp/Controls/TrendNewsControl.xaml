@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ElderlyCareApp.Controls.TrendNewsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElderlyCareApp.Controls"
+             xmlns:viewmodels="clr-namespace:ElderlyCareApp.Viewmodels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="450" MouseUp="News_Click">
+    <UserControl.DataContext>
+        <viewmodels:TrendNewsControlViewModel/>
+    </UserControl.DataContext>
+
+    <Border BorderThickness="1" CornerRadius="4" BorderBrush="Gray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{Binding TrendNo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image Grid.Column="1" Margin="5" Source="{Binding TrendImage}"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding TrendTitle}" Margin="5" TextTrimming="WordEllipsis"/>
+                <TextBlock Grid.Row="1" Text="{Binding TrendBrief}" Margin="5" TextWrapping="Wrap"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

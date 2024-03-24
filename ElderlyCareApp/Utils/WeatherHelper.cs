@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Svg;
+using System.Net;
+using System.Windows.Media;
 
 namespace ElderlyCareApp.Utils
 {
@@ -61,8 +64,14 @@ namespace ElderlyCareApp.Utils
 
         public string? AirQualityText
         {
-            get => "空气质量 " + _airQualityText;
+            //get => "空气质量 " + _airQuality + " " + _airQualityText;
+            get => _airQualityText;
             private set => SetField(ref _airQualityText, value);
+        }
+
+        public string? AirQualityMask
+        {
+            get => "空气质量 " + _airQuality + " " + _airQualityText;
         }
 
         public string? WeatherIconUrl
@@ -77,6 +86,18 @@ namespace ElderlyCareApp.Utils
             set => SetField(ref _weatherBrief, value);
         }
 
+        public ImageSource WeatherIcon
+        {
+            get => _weatherIcon;
+            set => SetField(ref _weatherIcon, value);
+        }
+
+        public SolidColorBrush DotFill
+        {
+            get => _dotFill;
+            set => SetField(ref _dotFill, value);
+        }
+
         private string? _detailedUrl;
         private string? _city;
         private string? _weather;
@@ -87,6 +108,8 @@ namespace ElderlyCareApp.Utils
         private string? _airQualityText;
         private string? _weatherIconUrl;
         private string? _weatherBrief;
+        private ImageSource _weatherIcon;
+        private SolidColorBrush _dotFill;
 
         public WeatherHelper()
         {
@@ -125,29 +148,52 @@ namespace ElderlyCareApp.Utils
 
             WeatherBrief = GetNodeAttribute(document, "//*[@id=\"weatherMiniMapContainer\"]/a", "aria-label");
 
+
+            // 将SvgDocument渲染到Bitmap
+            WeatherIcon = IconUtil.DownloadSvgImage(_weatherIconUrl);
+
             if (AirQuality != null)
-                AirQualityText = ConvertAirQuality(int.Parse(AirQuality));
+                ConvertAirQuality(int.Parse(AirQuality));
         }
 
-        private string ConvertAirQuality(int quality)
+        private void ConvertAirQuality(int quality)
         {
+            string textQuality;
+            Color dotColor;
             switch(quality)
             {
                 case <= 50:
-                    return "优";
+                    textQuality = "优";
+                    dotColor = Color.FromRgb(0, 255, 0);
+                    break;
                 case > 50 and <= 100:
-                    return "良";
+                    textQuality = "良";
+                    dotColor = Color.FromRgb(255, 255, 0);
+                    break;
                 case > 100 and <= 150:
-                    return "轻度污染";
+                    textQuality = "轻度污染";
+                    dotColor = Color.FromRgb(255, 150, 0);
+                    break;
                 case > 150 and <= 200:
-                    return "中度污染";
+                    textQuality = "中度污染";
+                    dotColor = Color.FromRgb(255, 0, 0);
+                    break;
                 case > 200 and <= 300:
-                    return "重度污染";
+                    textQuality = "重度污染";
+                    dotColor = Color.FromRgb(153, 0, 76);
+                    break;
                 case > 300:
-                    return "严重污染";
+                    textQuality = "严重污染";
+                    dotColor = Color.FromRgb(126, 0, 35);
+                    break;
                 default:
-                    return "数据无效";
+                    textQuality = "数据无效";
+                    dotColor = Color.FromArgb(0, 255, 255, 255);
+                    break;
             }
+
+            AirQualityText = textQuality;
+            DotFill = new SolidColorBrush(dotColor);
         }
 
         private string? GetNodeText(HtmlDocument document, string xpath)

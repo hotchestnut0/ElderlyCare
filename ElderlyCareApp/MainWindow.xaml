@@ -52,12 +52,23 @@
                     
                   </GroupBox>
 
-                    <GroupBox Grid.Column="1" Grid.Row="1" Margin="5" Header="天气" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="400">
-                        <controls:WeatherDisplay Grid.Column="1" Grid.Row="1" Margin="5"/>
-                    </GroupBox>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Margin="5" Header="天气" VerticalAlignment="Stretch">
+                            <controls:WeatherDisplay Grid.Column="1" Grid.Row="1" Margin="5"/>
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="1" Margin="5" Header="资讯">
+                            <controls:TrendingPanel/>
+                        </GroupBox>
+                    </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="页面2">
+            <TabItem Header="应用">
+                <controls:AppIconSet/>
             </TabItem>
         </TabControl>
         <Button Grid.Row="1" Style="{StaticResource ButtonWarning}" Content="关闭" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20" hc:IconElement.Geometry="{StaticResource CloseGeometry}" hc:IconElement.Height="20" hc:IconElement.Width="20" Width="120" Height="60" FontSize="20" Click="Button_Close_Click"/>

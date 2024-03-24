@@ -25,12 +25,15 @@
 
         <TextBlock Text="{Binding City}" Grid.Column="0" Margin="5" Grid.ColumnSpan="2" Grid.Row="0"/>
 
-        <WebBrowser Grid.Column="0" Grid.Row="1" x:Name="IconViewer" Margin="5"/>
+        <Image Grid.Column="0" Grid.Row="1" Source="{Binding WeatherIcon}" x:Name="IconViewer" Margin="5"/>
         <TextBlock Text="{Binding Weather}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Height="36" Width="112"/>
         <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" Grid.RowSpan="2">
             <TextBlock Text="{Binding TemperatureMask}" Margin="0,10,0,0"/>
             <TextBlock Text="{Binding SdMask}" Margin="0,10,0,0"/>
-            <TextBlock Text="{Binding AirQualityText}" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                <TextBlock Text="{Binding AirQualityMask}" VerticalAlignment="Center"/>
+                <Ellipse Width="12" Height="12" Fill="{Binding DotFill}" Margin="5" Stroke="Black"/>
+            </StackPanel>
             <TextBlock Text="{Binding Wind}" Margin="0,10,0,0"/>
         </StackPanel>
 

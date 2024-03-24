@@ -7,15 +7,18 @@
              d:DesignHeight="140" d:DesignWidth="140"
              MaxHeight="140" MaxWidth="140"
              MinHeight="140" MinWidth="140"
-    
+             Height="140" Width="140"
              
              MouseUp="AppIcon_MouseUp"
              MouseDown ="AppIcon_MouseDown"
              MouseEnter="AppIcon_MouseEnter"
              MouseLeave="AppIcon_MouseLeave"
+             Loaded="AppIcon_Loaded"
              >
-    <StackPanel>
-        <Image Source="{Binding AppIconSource, Mode=TwoWay}" Height="100" Width="100"/>
-        <TextBlock Text="{Binding AppName, Mode=TwoWay}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-    </StackPanel>
+    <Border BorderThickness="1" CornerRadius="4" BorderBrush="{Binding CustomBorderBrush}" Background="{Binding BackgroundBrush, Mode=TwoWay}">
+        <StackPanel>
+            <Image Source="{Binding AppIconSource, Mode=TwoWay}" Height="100" Width="100"/>
+            <TextBlock Text="{Binding AppName, Mode=TwoWay}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,10,0,0" TextTrimming="WordEllipsis"/>
+        </StackPanel>
+    </Border>
 </UserControl>

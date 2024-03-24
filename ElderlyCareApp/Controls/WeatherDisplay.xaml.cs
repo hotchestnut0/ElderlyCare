@@ -32,8 +32,6 @@ namespace ElderlyCareApp.Controls
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             await _weatherHelper.FetchAsync();
-            if (_weatherHelper.WeatherIconUrl != null)
-                IconViewer.Navigate(_weatherHelper.WeatherIconUrl);
         }
 
         private void Weather_Show_Detail(object sender, RoutedEventArgs e)

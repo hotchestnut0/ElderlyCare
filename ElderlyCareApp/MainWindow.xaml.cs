@@ -19,12 +19,12 @@ namespace ElderlyCareApp
     /// </summary>
     public partial class MainWindow : BlurWindow
     {
-        private SkinType _currentSkinType;
+        public static SkinType CurrentSkinType { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
             SettingsObject.SettingsProperties.SettingsUpdate += SettingsProperties_SettingsUpdate;
-            UpdateSkin(_currentSkinType = GetSkinType(SettingsObject.SettingsProperties.DarkMode));
+            UpdateSkin(CurrentSkinType = GetSkinType(SettingsObject.SettingsProperties.DarkMode));
             SyncSettings();
             EnsureNotCoverTaskbar();
         }
@@ -41,7 +41,7 @@ namespace ElderlyCareApp
             MainWindowViewModel mainWindowViewModel = (MainWindowViewModel)DataContext;
 
             SkinType newType = GetSkinType(settings.DarkMode);
-            if (_currentSkinType != newType)
+            if (CurrentSkinType != newType)
             {
                 RestartApp();
             }
