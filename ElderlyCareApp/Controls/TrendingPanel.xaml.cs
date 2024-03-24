@@ -30,7 +30,17 @@ namespace ElderlyCareApp.Controls
         private async void Trend_Loaded(object sender, RoutedEventArgs e)
         {
             _newsHelper = new();
-            await _newsHelper.FetchAsync();
+            bool r = await _newsHelper.FetchAsync();
+            if (!r)
+            {
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = "无法获取资讯，可能没有互联网连接";
+                textBlock.Margin = new(5);
+                
+                Trends.Children.Add(textBlock);
+                return;
+            }
+
 
             foreach(var i in _newsHelper.GetTrends())
             {

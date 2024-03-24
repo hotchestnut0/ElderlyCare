@@ -18,18 +18,23 @@ namespace ElderlyCareApp.Utils
 
         bool _navigationCompleted = false;
 
-        public NewsHelper() 
+        public NewsHelper()
         {
-            
+
         }
 
-        public async Task FetchAsync()
+        public async Task<bool> FetchAsync()
         {
-            HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = await web.LoadFromWebAsync(_trendPage);
-            
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                HtmlDocument doc = await web.LoadFromWebAsync(_trendPage);
 
-            AnalyzeHtml(doc);
+
+                await Task.Run(() => AnalyzeHtml(doc));
+                return true;
+            }
+            catch { return false; }
         }
 
         public Trending[] GetTrends()
@@ -41,11 +46,13 @@ namespace ElderlyCareApp.Utils
         {
             var htmlNodes = doc.DocumentNode.SelectNodes("//*[@id=\"sanRoot\"]/main/div[2]/div/div[2]/div[@class=\"category-wrap_iQLoo horizontal_1eKyQ\"]");
             int id = 0;
-            foreach(var i in htmlNodes)
+            foreach (var i in htmlNodes)
             {
-                if(i == null) continue;
+                if (i == null)
+                    continue;
                 var contentNode = i.SelectSingleNode("./div[@class='content_1YWBm']");
-                if(contentNode == null) continue;
+                if (contentNode == null)
+                    continue;
 
                 var linkNode = contentNode.SelectSingleNode("./a");
                 var titleNode = linkNode.SelectSingleNode("./div[@class='c-single-text-ellipsis']");
