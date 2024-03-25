@@ -56,5 +56,20 @@ namespace ElderlyCareApp.Utils
             return bitmapImage;
 
         }
+        
+        public static async Task<ImageSource> DownloadBitmapImageAsync(string url)
+        {
+            using HttpClient httpClient = new();
+            var stream = await httpClient.GetStreamAsync(url);
+
+            BitmapImage bitmapImage = new();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = stream;
+            bitmapImage.EndInit();
+            //bitmapImage.Freeze();
+
+            return bitmapImage;
+
+        }
     }
 }

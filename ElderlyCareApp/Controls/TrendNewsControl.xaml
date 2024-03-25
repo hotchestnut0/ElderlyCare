@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ElderlyCareApp.Controls"
              xmlns:viewmodels="clr-namespace:ElderlyCareApp.Viewmodels"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="450" MouseUp="News_Click">
+             d:DesignHeight="100" d:DesignWidth="450" MouseUp="News_Click" Loaded="NewsControl_Loaded">
     <UserControl.DataContext>
         <viewmodels:TrendNewsControlViewModel/>
     </UserControl.DataContext>

@@ -4,9 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElderlyCareApp.Controls"
+             xmlns:viewmodels="clr-namespace:ElderlyCareApp.Viewmodels"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400" Loaded="Trend_Loaded">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="Trends"/>
-    </ScrollViewer>
+    <UserControl.DataContext>
+        <viewmodels:TrendingPanelViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="刷新" HorizontalAlignment="Left" Margin="5" Click="Refresh_Click" IsEnabled="{Binding EnableRefreshButton}"/>
+            <TextBlock Text="√ 刷新完成" Visibility="{Binding ShowRefreshComplete}" FontSize="18" Foreground="Green" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="Trends"/>
+        </ScrollViewer>
+    </Grid>
+    
 </UserControl>

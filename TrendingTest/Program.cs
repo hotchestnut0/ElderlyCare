@@ -1,4 +1,4 @@
-﻿using ElderlyCareApp.Utils;
+﻿using ElderlyCareApp.NewsSource;
 
 namespace TrendingTest
 {
@@ -6,10 +6,10 @@ namespace TrendingTest
     {
         static async Task Main(string[] args)
         {
-            NewsHelper newsHelper = new();
+            BaiduTrendingProvider newsHelper = new();
             await newsHelper.FetchAsync();
 
-            foreach (var i in newsHelper.GetTrends())
+            foreach (var i in newsHelper.GetTrendings())
             {
                 Console.WriteLine($"{i.No} {i.Title}");
             }

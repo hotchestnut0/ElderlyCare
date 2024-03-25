@@ -1,4 +1,5 @@
-﻿using ElderlyCareApp.Utils;
+﻿using ElderlyCareApp.NewsSource;
+using ElderlyCareApp.Viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,28 +22,56 @@ namespace ElderlyCareApp.Controls
     /// </summary>
     public partial class TrendingPanel : UserControl
     {
-        private NewsHelper _newsHelper;
+        private BaiduTrendingProvider? _provider;
+        private TrendingPanelViewModel _viewModel;
         public TrendingPanel()
         {
             InitializeComponent();
+            _viewModel = (TrendingPanelViewModel)DataContext;
         }
 
         private async void Trend_Loaded(object sender, RoutedEventArgs e)
         {
-            _newsHelper = new();
-            bool r = await _newsHelper.FetchAsync();
+            _provider = new();
+            bool r = await _provider.FetchAsync();
             if (!r)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = "无法获取资讯，可能没有互联网连接";
                 textBlock.Margin = new(5);
-                
+
                 Trends.Children.Add(textBlock);
                 return;
             }
 
+            PlaceControls(_provider.GetTrendings());
 
-            foreach(var i in _newsHelper.GetTrends())
+        }
+
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            if (_provider == null)
+                return;
+
+            _viewModel.EnableRefreshButton = false;
+            _viewModel.ShowRefreshComplete = Visibility.Visible;
+            bool res = await _provider.FetchAsync();
+            if (!res)
+                goto reset;
+
+            PlaceControls(_provider.GetTrendings());
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+        reset:
+            _viewModel.EnableRefreshButton = true;
+            _viewModel.ShowRefreshComplete = Visibility.Collapsed;
+        }
+
+        private void PlaceControls(Trending[] trendings)
+        {
+            Trends.Children.Clear();
+            foreach (var i in trendings)
             {
                 TrendNewsControl trendNewsControl = new(i);
                 trendNewsControl.Margin = new(5);

@@ -1,4 +1,5 @@
-﻿using ElderlyCareApp.Utils;
+﻿using ElderlyCareApp.NewsSource;
+using ElderlyCareApp.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,12 +50,25 @@ namespace ElderlyCareApp.Viewmodels
             set => SetField(ref _trendLink, value);
         }
 
-        public void UpdateTrend(Trending trending)
+        public void UpdateTrendText(Trending trending)
         {
             TrendTitle = trending.Title;
             TrendBrief = trending.Description;
             TrendNo = trending.No;
-            TrendImage = IconUtil.DownloadBitmapImage(trending.ImageUrl);
+            TrendLink = trending.Link;
+        }
+
+        public async Task UpdateTrendImageAsync(Trending trending)
+        {
+            TrendImage = await IconUtil.DownloadBitmapImageAsync(trending.ImageUrl);
+        }
+
+        public async Task UpdateTrendAsync(Trending trending)
+        {
+            TrendTitle = trending.Title;
+            TrendBrief = trending.Description;
+            TrendNo = trending.No;
+            TrendImage = await IconUtil.DownloadBitmapImageAsync(trending.ImageUrl);
             TrendLink = trending.Link;
         }
 

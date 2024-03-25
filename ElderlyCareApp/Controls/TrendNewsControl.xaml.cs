@@ -1,4 +1,5 @@
-﻿using ElderlyCareApp.Utils;
+﻿using ElderlyCareApp.NewsSource;
+using ElderlyCareApp.Utils;
 using ElderlyCareApp.Viewmodels;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace ElderlyCareApp.Controls
     public partial class TrendNewsControl : UserControl
     {
         private TrendNewsControlViewModel _viewModel;
+        private Trending _trending;
         public TrendNewsControl()
         {
             InitializeComponent();
@@ -36,12 +38,14 @@ namespace ElderlyCareApp.Controls
             InitializeComponent();
             _viewModel = (TrendNewsControlViewModel)DataContext;
 
-            UpdateTrend(trending);
+            _trending = trending;
+            _viewModel.UpdateTrendText(trending);
         }
 
-        public void UpdateTrend(Trending trending)
+        public async void UpdateTrend(Trending trending)
         {
-            _viewModel.UpdateTrend(trending);
+            _viewModel.UpdateTrendText(trending);
+            await _viewModel.UpdateTrendAsync(trending);
         }
 
         private void News_Click(object sender, MouseButtonEventArgs e)
@@ -51,6 +55,11 @@ namespace ElderlyCareApp.Controls
 
             ProcessUtil.StartProcessShellExecute(_viewModel.TrendLink);
            
+        }
+
+        private async void NewsControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.UpdateTrendImageAsync(_trending);
         }
     }
 }

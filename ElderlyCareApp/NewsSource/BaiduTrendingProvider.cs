@@ -9,16 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace ElderlyCareApp.Utils
+namespace ElderlyCareApp.NewsSource
 {
-    public class NewsHelper
+    public class BaiduTrendingProvider : ITrendingProvider
     {
         private const string _trendPage = "https://top.baidu.com/board?tab=realtime";
         private List<Trending> trendings = new();
 
-        bool _navigationCompleted = false;
-
-        public NewsHelper()
+        public BaiduTrendingProvider()
         {
 
         }
@@ -37,20 +35,36 @@ namespace ElderlyCareApp.Utils
             catch { return false; }
         }
 
-        public Trending[] GetTrends()
+        public bool Fetch()
+        {
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                HtmlDocument doc = web.Load(_trendPage);
+
+
+                AnalyzeHtml(doc);
+                return true;
+            }
+            catch { return false; }
+        }
+
+        public Trending[] GetTrendings()
         {
             return trendings.ToArray();
         }
 
         private void AnalyzeHtml(HtmlDocument doc)
         {
+            trendings.Clear();
             var htmlNodes = doc.DocumentNode.SelectNodes("//*[@id=\"sanRoot\"]/main/div[2]/div/div[2]/div[@class=\"category-wrap_iQLoo horizontal_1eKyQ\"]");
-            int id = 0;
+            int id = 1;
             foreach (var i in htmlNodes)
             {
                 if (i == null)
                     continue;
                 var contentNode = i.SelectSingleNode("./div[@class='content_1YWBm']");
+
                 if (contentNode == null)
                     continue;
 
