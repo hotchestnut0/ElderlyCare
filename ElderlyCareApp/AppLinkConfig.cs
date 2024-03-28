@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace ElderlyCareApp
 {
-    public class AppLinkConfig : ISavable
+    public class AppLinkConfig
     {
         public string? AppName { get; set; }
         public ImageSource? Icon { get; set; }

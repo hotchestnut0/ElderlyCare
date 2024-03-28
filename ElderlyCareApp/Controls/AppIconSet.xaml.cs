@@ -42,7 +42,7 @@ namespace ElderlyCareApp.Controls
             appIcon.Margin = new(10);
             appIcon.Width = 72;
             appIcon.Height = 72;
-            Apps.Children.Add(appIcon);
+            _viewModel.AppIcons.Add(appIcon);
         }
 
         public void SaveIcon()

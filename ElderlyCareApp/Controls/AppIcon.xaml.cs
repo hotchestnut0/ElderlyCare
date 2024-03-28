@@ -53,13 +53,25 @@ namespace ElderlyCareApp.Controls
         public Brush CustomBorderBrush
         {
             get => (Brush)GetValue(CustomBorderBrushProperty);
-            set => SetValue(CustomBorderBrushProperty, value);
+            set
+            {
+                if (DisableVisualState)
+                    return;
+                SetValue(CustomBorderBrushProperty, value);
+            }
         }
         public Brush BackgroundBrush
         {
             get => (Brush)GetValue(BackgroundBrushProperty);
-            set => SetValue(BackgroundBrushProperty, value);
+            set
+            {
+                if (DisableVisualState)
+                    return;
+                SetValue(BackgroundBrushProperty, value);
+            }
         }
+
+        public bool DisableVisualState { get; set; }
 
         private static Brush _enterBrush = new SolidColorBrush(Color.FromArgb(255, 173, 216, 230));
         private static Brush _transBrush = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255));
@@ -135,6 +147,7 @@ namespace ElderlyCareApp.Controls
         private void AppIcon_MouseLeave(object sender, MouseEventArgs e)
         {
             CustomBorderBrush = _transBrush;
+            BackgroundBrush = (SolidColorBrush)_defaultBrush;
         }
 
         private void AppIcon_MouseDown(object sender, MouseButtonEventArgs e)

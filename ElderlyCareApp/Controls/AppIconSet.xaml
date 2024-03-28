@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElderlyCareApp.Controls"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:viewmodels="clr-namespace:ElderlyCareApp.Viewmodels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -11,12 +12,33 @@
         <viewmodels:AppIconSetViewModel/>
     </UserControl.DataContext>
     
-    <WrapPanel x:Name="Apps" Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Stretch">
+    <!--<WrapPanel x:Name="Apps" Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Stretch" 
+               dd:DragDrop.IsDragSource="True"
+               dd:DragDrop.IsDropTarget="True">
         <WrapPanel.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="添加" Click="MenuItem_AddApp"/>
             </ContextMenu>
         </WrapPanel.ContextMenu>
-    </WrapPanel>
+    </WrapPanel>-->
+
+    <ItemsControl ItemsSource="{Binding AppIcons}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"> 
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <local:AppIcon/>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Stretch">
+                    <WrapPanel.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="添加" Click="MenuItem_AddApp"/>
+                        </ContextMenu>
+                    </WrapPanel.ContextMenu>
+                </WrapPanel>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
 
 </UserControl>
