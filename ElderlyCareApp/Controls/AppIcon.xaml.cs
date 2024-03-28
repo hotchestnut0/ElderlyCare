@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -118,6 +119,13 @@ namespace ElderlyCareApp.Controls
             SetExecutable(_executable);
         }
 
+        public void Restore(AppLinkConfig appLinkConfig)
+        {
+            Executable = appLinkConfig.Executable;
+            AppName = appLinkConfig.AppName;
+            AppIconSource = appLinkConfig.Icon;
+        }
+
         #region Visual State
         private void AppIcon_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -173,5 +181,19 @@ namespace ElderlyCareApp.Controls
         {
             _defaultBrush = Background;
         }
+
+        public static explicit operator AppLinkConfig(AppIcon icon)
+        {
+            AppLinkConfig appLinkConfig = new()
+            {
+                Executable = icon.Executable!,
+                AppName = icon.AppName,
+                Icon = icon.AppIconSource
+            };
+
+            return appLinkConfig;
+        }
+
+        
     }
 }

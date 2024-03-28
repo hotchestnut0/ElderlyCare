@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -70,6 +71,35 @@ namespace ElderlyCareApp.Utils
 
             return bitmapImage;
 
+        }
+
+        public static byte[]? ImageSourceToBytes(ImageSource imageSource)
+        {
+            byte[]? bytes = null;
+            try
+            {
+                PngBitmapEncoder encoder = new();
+                if (imageSource is BitmapSource bitmapSource)
+                {
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+
+                    using var stream = new MemoryStream();
+                    encoder.Save(stream);
+                    bytes = stream.ToArray();
+                }
+
+            }
+            catch { return null; }
+
+            return bytes;
+        }
+
+        public static ImageSource BytesToImageSource(byte[] array)
+        {
+            using MemoryStream memoryStream = new MemoryStream(array);
+
+            PngBitmapDecoder decoder=new(memoryStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+            return decoder.Frames[0];
         }
     }
 }

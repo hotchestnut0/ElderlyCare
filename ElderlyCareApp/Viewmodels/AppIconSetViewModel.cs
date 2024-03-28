@@ -1,8 +1,10 @@
 ﻿using ElderlyCareApp.Controls;
+using ElderlyCareApp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -33,7 +35,8 @@ namespace ElderlyCareApp.Viewmodels
 
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            if (EqualityComparer<T>.Default.Equals(field, value))
+                return false;
             field = value;
             OnPropertyChanged(propertyName);
             return true;

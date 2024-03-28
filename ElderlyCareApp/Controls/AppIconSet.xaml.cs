@@ -44,5 +44,10 @@ namespace ElderlyCareApp.Controls
             appIcon.Height = 72;
             Apps.Children.Add(appIcon);
         }
+
+        public void SaveIcon()
+        {
+
+        }
     }
 }
